@@ -2,7 +2,7 @@
 
 # zyan/work-wechat
 
-模拟企业微信后台
+企业微信后台SDK
 
 - 获取qrcode
 - 登录获取cookie

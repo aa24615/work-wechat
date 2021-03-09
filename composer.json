@@ -1,6 +1,6 @@
 {
   "name": "zyan/work-wechat",
-  "description": "模拟企业微信后台",
+  "description": "企业微信后台SDK",
   "keywords": [
     "企业微信爬虫",
     "企业微信SDK",
