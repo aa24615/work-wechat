@@ -30,5 +30,9 @@ class ServiceProvider implements ServiceProviderInterface
         $app['department'] = function ($app) {
             return new DepartmentClient($app);
         };
+
+        $app['user'] = function ($app) {
+            return new UserClient($app);
+        };
     }
 }

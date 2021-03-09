@@ -20,6 +20,7 @@ use Zyan\WorkWeChat\Kernel\ServiceContainer;
  *
  * @property \Zyan\WorkWeChat\WorkWeChat\Login\Client $login
  * @property \Zyan\WorkWeChat\WorkWeChat\User\DepartmentClient $department
+ * @property \Zyan\WorkWeChat\WorkWeChat\User\UserClient $user
  * @property \Zyan\WorkWeChat\WorkWeChat\Corp\Client $corp
  * @property \Zyan\WorkWeChat\WorkWeChat\Apps\Client $apps
  *

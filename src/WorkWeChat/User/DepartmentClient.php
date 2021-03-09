@@ -11,6 +11,7 @@
 namespace Zyan\WorkWeChat\WorkWeChat\User;
 
 use Zyan\WorkWeChat\Kernel\BaseClient;
+use Zyan\WorkWeChat\Kernel\Support\Params;
 
 /**
  * Class DepartmentClient.
@@ -36,7 +37,7 @@ class DepartmentClient extends BaseClient
             'f' => 'json',
             'ajax' => 1,
             'timeZoneInfo[zone_offset]' => -8,
-            'random' => time()
+            'random' => Params::random()
         ];
 
         return $this->httpPost('wework_admin/contacts/party/cache?'.http_build_query($params));

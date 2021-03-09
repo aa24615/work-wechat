@@ -120,16 +120,35 @@ $work->corp->getCorp();
 ```
 
 
+通讯录
+
+```php
+//获取部门列表
+$work->department->getList();
+
+//获取员工列表
+$work->user->getList();
+
+```
 
 
-更多操作
+应用操作
 ```php
 
 //获取所有应用列表
 $work->apps->getList();
 
-//获取部门列表
-$work->department->getList();
+//创建内部应用 $visiblePid 可见部门
+$work->apps->addOpenApiApp(string $name, string $description, string $logoImage, array $visiblePid = []);
+
+//应用详情
+$work->apps->getOpenApiApp(int $appId);
+
+//应用设为开启状态
+$work->apps->saveOpenApiApp(int $appId);
+
+//获取可信域名txt文件验证 返回filename txt内容为文件名,需要自已生成txt
+$work->apps->getDomainOwnershipVerifyInfo();
 
 ```
 

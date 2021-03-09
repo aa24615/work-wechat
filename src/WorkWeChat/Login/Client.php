@@ -12,6 +12,7 @@ namespace Zyan\WorkWeChat\WorkWeChat\Login;
 
 use Zyan\WorkWeChat\Kernel\BaseClient;
 use Zyan\WorkWeChat\Kernel\Support\Cookie;
+use Zyan\WorkWeChat\Kernel\Support\Params;
 
 /**
  * Class Client.
@@ -33,7 +34,7 @@ class Client extends BaseClient
     private function getKey()
     {
         $params = [
-            'r' => time(),
+            'r' => Params::random(),
             'login_type' => 'login_admin',
             'callback' => 'wwqrloginCallback',
             'redirect_uri' => 'https://work.weixin.qq.com/wework_admin/loginpage_wx?pagekey=1614996011736462&from=myhome',

@@ -27,7 +27,9 @@ $config = [
 
 $work = WorkWeChat::config($config);
 
+$res = $work->user->getList();
 
+print_r($res);exit;
 
 //print_r($work->config);exit;
 //$res = $work->corp->getCorp();
