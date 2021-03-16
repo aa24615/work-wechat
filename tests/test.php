@@ -25,11 +25,19 @@ $config = [
     ]
 ];
 
+
+function usage(){
+    echo "内存:";
+    echo ceil(memory_get_usage()/1024/1024);
+    echo PHP_EOL;
+}
+
+
 $work = WorkWeChat::config($config);
 
-$res = $work->user->getList();
-
-print_r($res);exit;
+//$res = $work->user->getList();
+//
+//print_r($res);exit;
 
 //print_r($work->config);exit;
 //$res = $work->corp->getCorp();
@@ -42,6 +50,7 @@ print_r($res);exit;
 
 $qrcode = $work->login->getQrcode();
 
+usage();
 
 $cliOpen = OsAdaptingFactory::create();
 $cliOpen->open($qrcode['qrcode_url']);
@@ -52,6 +61,7 @@ $getStatus = false;
 while (!$getStatus) {
     $resStatus = $work->login->getStatus($qrcode_key);
 
+    usage();
     switch ($resStatus['data']['status']) {
         case 'QRCODE_SCAN_NEVER':
             cli_log('等待扫码');
