@@ -60,8 +60,6 @@ class BaseClient
     {
         $cookie = $this->getCookieStr();
 
-        var_dump($cookie);
-
         $response = $this->http->get($url, [
             'query' => $data,
             'headers' => [
@@ -154,8 +152,6 @@ class BaseClient
     public function curlCookie(string $url, array $data = [], array $header = [])
     {
         $url = $this->baseUri.$url.(!empty($data) ? '?'.http_build_query($data) : '');
-
-        var_dump($url);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, true);
