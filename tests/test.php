@@ -26,9 +26,10 @@ $config = [
 ];
 
 
-function usage(){
+function usage()
+{
     echo "内存:";
-    echo ceil(memory_get_usage()/1024/1024);
+    echo ceil(memory_get_usage() / 1024 / 1024);
     echo PHP_EOL;
 }
 
@@ -81,13 +82,9 @@ while (!$getStatus) {
             $getStatus = true;
             $auth_code = $resStatus['data']['auth_code'];
             $res = $work->login->getCookie($auth_code, $qrcode_key);
-
             var_dump($res);
-            if ($res) {
-                $res = $work->corp->getCorp();
-                print_r($res);
-            }
-
+            $res = $work->corp->getCorp();
+            var_dump($res);
             break;
         default:
             cli_log('未知状态');

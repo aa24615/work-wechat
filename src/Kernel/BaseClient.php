@@ -60,6 +60,8 @@ class BaseClient
     {
         $cookie = $this->getCookieStr();
 
+        var_dump($cookie);
+
         $response = $this->http->get($url, [
             'query' => $data,
             'headers' => [
@@ -142,17 +144,23 @@ class BaseClient
      *
      * @param string $url
      * @param array $data
+     * @param array $header
      *
      * @return string
      *
      * @author 读心印 <aa24615@qq.com>
      */
 
-    public function curlCookie(string $url, array $data)
+    public function curlCookie(string $url, array $data = [], array $header = [])
     {
+        $url = $this->baseUri.$url.(!empty($data) ? '?'.http_build_query($data) : '');
+
+        var_dump($url);
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_URL, $this->baseUri.$url.'?'.http_build_query($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -163,15 +171,44 @@ class BaseClient
     }
 
     /**
+     * curlCookie2.
+     *
+     * @param string $url
+     * @param array $header
+     *
+     * @return string
+     *
+     * @author 读心印 <aa24615@qq.com>
+     */
+
+    public function curlCookie2(string $url, array $header = [])
+    {
+        $url = $this->baseUri.$url;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        return $output;
+    }
+
+
+    /**
      * getCookieStr.
      *
      * @return string
      *
      * @author 读心印 <aa24615@qq.com>
      */
-    public function getCookieStr()
+    public function getCookieStr($name = 'cookie')
     {
-        $data = $this->app['cache']->get('cookie');
+        $data = $this->app['cache']->get($name);
 
         $str = '';
 

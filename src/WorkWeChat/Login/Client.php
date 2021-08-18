@@ -100,15 +100,42 @@ class Client extends BaseClient
     public function getCookie(string $auth_code, string $qrocde_key)
     {
         $params = [
-            'pagekey' => 'test',
-            'from' => 'myhome',
             'code' => $auth_code,
             'wwqrlogin' => 1,
             'qrcode_key' => $qrocde_key,
-            'auth_source' => 'SOURCE_FROM_WEWORK'
+            'auth_source' => 'SOURCE_FROM_WEWORK',
+            '_r' => 190,
+//            'redirect_uri' => 'https://work.weixin.qq.com/wework_admin/frame',
+//            'url_hash' => '#customer/tagconfig'
         ];
 
         $data = $this->curlCookie('wework_admin/loginpage_wx', $params);
+
+        $cookie = Cookie::find($data);
+        $this->app['cache']->set('cookie_temp', $cookie);
+
+        preg_match_all("/location:(.*)/im", $data, $matches);
+
+        $location = ltrim(trim($matches[1][0]), '/');
+
+        return $this->getCookie2($location);
+    }
+
+    /**
+     * 获取登录cookie2.
+     *
+     * @param string $location
+     *
+     * @return boolean
+     *
+     * @author 读心印 <aa24615@qq.com>
+     */
+    public function getCookie2(string $location)
+    {
+        $cookieStr = $this->getCookieStr('cookie_temp');
+        $header = ['cookie:'.$cookieStr];
+
+        $data = $this->curlCookie2($location, $header);
 
         $cookie = Cookie::find($data);
 
@@ -134,6 +161,7 @@ class Client extends BaseClient
         foreach ($cookie as $v) {
             if ($v['name'] == 'wwrtx.sid') {
                 $isLogin = true;
+                break;
             }
         }
 

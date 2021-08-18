@@ -31,8 +31,9 @@ class Cookie
 
     public static function find(string $str)
     {
-        preg_match_all("/[s]et-cookie:(.*?);/m", $str, $matches);
+        preg_match_all("/[s]et-cookie:(.*?);/im", $str, $matches);
         $data = [];
+
         foreach ($matches[1] as $v) {
             $arr = explode('=', $v);
             $data[] = [
